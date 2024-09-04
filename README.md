@@ -1,76 +1,79 @@
-# Market Basket Analysis
+# Heart Disease Classification
 
 ## Project Overview
 
-The `Market_Analysis_Basket` project focuses on identifying patterns in customer purchase behavior through Market Basket Analysis. The objective is to uncover associations between products frequently bought together, enabling businesses to optimize product placements, cross-sell, and improve overall sales strategy.
+The `heart-disease-classification` project aims to develop a machine learning model to predict the presence of heart disease in patients based on various medical attributes. The goal is to create a reliable classification model that can assist healthcare professionals in identifying individuals at risk of heart disease.
 
 ## Dataset
 
-- **Source:** The dataset consists of transaction records, capturing the items purchased together by customers.
-- **Data:** Each transaction includes a list of products bought during a single shopping trip.
+- **Source:** The dataset contains patient information, including attributes like age, sex, chest pain type, resting blood pressure, cholesterol level, fasting blood sugar, and other relevant medical indicators.
+- **Data:** The target variable is binary, indicating whether the patient has heart disease (1) or not (0).
 
 ## Tools & Libraries Used
 
 - **Data Handling:**
   - `Pandas` for data manipulation and preprocessing.
-- **Association Rule Mining:**
-  - `mlxtend` library for implementing algorithms like Apriori and FP-Growth to find frequent itemsets and association rules.
+  - `NumPy` for numerical operations.
 - **Data Visualization:**
-  - `Matplotlib` and `Seaborn` for visualizing the patterns and relationships in the dataset.
+  - `Matplotlib` and `Seaborn` for visualizing data distributions and relationships.
+- **Machine Learning:**
+  - `scikit-learn` for building and evaluating classification models.
+  - `XGBoost` and `LogisticRegression` for model comparison and selection.
 
 ## Methodology
 
 ### Data Preprocessing:
 
-- **Data Cleaning:**
-  - Removed any duplicates and handled missing values to ensure data quality.
+- **Handling Missing Values:**
+  - Imputed missing data and handled outliers to ensure a clean dataset.
   
-- **Transaction Encoding:**
-  - Transformed the dataset into a format suitable for association rule mining by encoding the transaction data into a binary matrix.
+- **Feature Scaling:**
+  - Applied normalization to numerical features to improve model performance.
 
-### Association Rule Mining:
+- **Feature Selection:**
+  - Used correlation analysis and feature importance metrics to select the most relevant features for the model.
 
-- **Frequent Itemsets:**
-  - Used the Apriori algorithm to identify frequent itemsets that appear together in transactions above a certain support threshold.
+### Model Development:
+
+- **Classification Algorithms:**
+  - Tested various algorithms such as Logistic Regression, Random Forest, and XGBoost to determine the best model for predicting heart disease.
   
-- **Rule Generation:**
-  - Generated association rules from the frequent itemsets using metrics like confidence, lift, and support to evaluate the strength and relevance of the rules.
+- **Model Training:**
+  - Trained the models on the preprocessed dataset and performed hyperparameter tuning to optimize their performance.
 
 ### Model Evaluation:
 
-- **Support:**
-  - Measured how frequently the itemsets appear in the dataset.
+- **Accuracy and AUC:**
+  - Evaluated the models using metrics like accuracy, AUC (Area Under the Curve), precision, recall, and F1-score to determine their effectiveness.
   
-- **Confidence:**
-  - Assessed the likelihood of products being purchased together.
-  
-- **Lift:**
-  - Evaluated the strength of a rule by comparing the observed frequency with expected frequency if the items were independent.
+- **Confusion Matrix:**
+  - Used a confusion matrix to analyze the classification performance and identify any misclassifications.
 
 - **Example Usage:**
   ```python
-  from mlxtend.frequent_patterns import apriori, association_rules
+  from sklearn.ensemble import RandomForestClassifier
   
-  frequent_itemsets = apriori(transaction_data, min_support=0.01, use_colnames=True)
-  rules = association_rules(frequent_itemsets, metric="lift", min_threshold=1.0)
+  model = RandomForestClassifier()
+  model.fit(X_train, y_train)
+  predictions = model.predict(X_test)
   ```
 
 ## Results
 
-The analysis revealed strong associations between certain products, suggesting opportunities for cross-selling and targeted marketing strategies. For example, customers who bought product A were also likely to buy product B, indicating a potential for bundling these products together.
+The classification model achieved high accuracy and AUC, effectively identifying patients at risk of heart disease. The RandomForestClassifier and XGBoost models demonstrated strong performance, with XGBoost slightly outperforming others in most metrics.
 
 ## Conclusion
 
-This project successfully identified key product associations within the transaction data, providing valuable insights for improving sales strategies and enhancing the shopping experience. The findings can be used to inform product placements, promotions, and inventory management.
+This project successfully developed a robust model for heart disease classification. The model's high accuracy and reliability make it a valuable tool for early detection, potentially aiding in the prevention and treatment of heart disease.
 
 ## Future Work
 
-- **Advanced Algorithms:**
-  - Explore the use of FP-Growth and other advanced algorithms for more efficient rule mining on larger datasets.
+- **Advanced Feature Engineering:**
+  - Explore the creation of new features based on domain knowledge to further improve model accuracy.
   
-- **Customer Segmentation:**
-  - Combine Market Basket Analysis with customer segmentation to develop personalized marketing strategies.
+- **Ensemble Methods:**
+  - Implement ensemble techniques to combine multiple models for even better predictive performance.
   
-- **Real-Time Analysis:**
-  - Implement real-time Market Basket Analysis to adapt to changing customer behaviors dynamically.
+- **Deployment:**
+  - Deploy the model as a web application to make predictions accessible to healthcare professionals in real-time.
 
